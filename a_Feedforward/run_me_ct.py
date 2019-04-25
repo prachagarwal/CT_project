@@ -38,7 +38,7 @@ parser.add_argument('-lr', '--learning_rate', dest='learning_rate', type=float, 
 parser.add_argument('-dr', '--dropout_rate', dest='dropout_rate', type=float, default='0.0', help='drop-out rate')
 parser.add_argument('--no_epochs', type=int, default=200, help='number of epochs to train for')
 parser.add_argument('--batch_size', type=int, default=12, help='batch size')
-parser.add_argument('--validation_fraction', type=float, default=0.5, help='fraction of validation data')
+parser.add_argument('--validation_fraction', type=float, default=0.1, help='fraction of validation data')
 parser.add_argument('--valid', action='store_true', help='pick the best model based on the loss, not the MSE?')
 
 
@@ -47,7 +47,7 @@ parser.add_argument('--is_map', action='store_true', help='Want to use MAP-MRI i
 parser.add_argument('-pl', '--no_patches', dest='no_patches', type=int, default=2250, help='number of patches sampled from each train subject')
 parser.add_argument('-ts', '--no_subjects', dest="no_subjects", type=int, default='1', help='background value')
 parser.add_argument('--no_channels', type=int, default=1, help='number of channels')
-parser.add_argument('-bgval', '--background_value', dest="background_value", type=float, default='0', help='background value')
+parser.add_argument('-bgval', '--background_value', dest="background_value", type=float, default='-10000', help='background value')
 
 parser.add_argument('-us', '--upsampling_rate', dest="upsampling_rate", type=int, default=1, help='upsampling rate')
 parser.add_argument('-ir', '--input_radius', dest="input_radius", type=int, default=5, help='input radius')
@@ -72,9 +72,9 @@ print device_lib.list_local_devices()
 # TODO: need to change this - too data specific.
 def fetch_subjects(no_subjects=1, shuffle=False, test=False):
     if test:
-        subj_list = ['IPF-2']
+        subj_list = ['IPF-9', 'IPF-6', 'IPF-5']
     else:
-        subj_list = ['IPF-2']
+        subj_list = ['IPF-2', 'IPF-7', 'IPF-8', 'IPF-11']
 
     assert no_subjects <= len(subj_list)
 
@@ -113,7 +113,7 @@ if not(os.path.exists(base_dir)):
     os.makedirs(opt["stats_dir"])
 
 # data type
-opt['input_file_name'] = 'image_stack_ultralow_{:d}.nii'
+opt['input_file_name'] = 'image_stack_low_{:d}.nii'
 opt['gt_header'] = 'image_stack_normal_{:d}.nii'
 opt['output_file_name'] = 'ct_recon_normal.npy'
 
