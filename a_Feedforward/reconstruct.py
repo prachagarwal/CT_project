@@ -245,8 +245,8 @@ def super_resolve(dt_lowres, opt):
                                     0]
 
             # only process if any pixel in the output patch is in the brain.
-            if np.max(ipatch_mask)>=0:
-                ipatch = ipatch_tmp[np.newaxis, ...]
+            #if np.max(ipatch_mask)>=0:
+                #ipatch = ipatch_tmp[np.newaxis, ...]
 
                 # Predict high-res patch:
                 fd = {x: ipatch,
